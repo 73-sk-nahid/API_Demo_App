@@ -85,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
                     textPasswordLayout.setError("");
                 } else {
                     // If all EditTexts are empty, set the TextView visibility to VISIBLE
-                    //t_warning.setVisibility(View.VISIBLE);
                     if (textInputLayout.equals("")){
                         textInputLayout.setError("Username must required");
                     }
@@ -98,8 +97,7 @@ public class MainActivity extends AppCompatActivity {
                     else {
                         textPasswordLayout.setError(null);
                     }
-                    //textInputLayout.setError("Username must required");
-                    //textPasswordLayout.setError("Password must required");
+
                 }
             }
         };
@@ -130,9 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText("Authorized");
                         progressBar.setVisibility(View.INVISIBLE);
                         login.setCardBackgroundColor(Color.parseColor("#22bb33"));
-                        //textView.setTextColor(Color.parseColor("#22bb33"));
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                        //finish();
 
                     } else {
                         progressBar.setVisibility(View.INVISIBLE);
