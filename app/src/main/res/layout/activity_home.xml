@@ -6,4 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="30dp"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/company_btn"
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="240dp"
+            android:onClick="Company"
+            android:text="Company" />
+
+        <Button
+            android:id="@+id/category_btn"
+            android:layout_width="220dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:onClick="Category"
+            android:text="Category" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

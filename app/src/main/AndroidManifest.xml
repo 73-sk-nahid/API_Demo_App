@@ -15,6 +15,9 @@
         android:theme="@style/Theme.OCT_Demo_1"
         tools:targetApi="31">
         <activity
+            android:name=".Company_view"
+            android:exported="false" />
+        <activity
             android:name=".HomeActivity"
             android:exported="false" />
         <activity

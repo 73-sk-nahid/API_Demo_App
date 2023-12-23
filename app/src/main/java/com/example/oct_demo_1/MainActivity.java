@@ -26,6 +26,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
@@ -129,6 +130,7 @@ public class MainActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.INVISIBLE);
                         login.setCardBackgroundColor(Color.parseColor("#22bb33"));
                         startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        Toast.makeText(MainActivity.this, "Login Successful", Toast.LENGTH_SHORT).show();
 
                     } else {
                         progressBar.setVisibility(View.INVISIBLE);
