@@ -86,58 +86,33 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     // If all EditTexts are empty, set the TextView visibility to VISIBLE
                     //t_warning.setVisibility(View.VISIBLE);
-                    textInputLayout.setError("Enter Username");
-                    textPasswordLayout.setError("Enter Password");
+                    if (textInputLayout.equals("")){
+                        textInputLayout.setError("Username must required");
+                    }
+                    else {
+                        textInputLayout.setError(null);
+                    }
+                    if (textPasswordLayout.equals("")){
+                        textPasswordLayout.setError("Password must required");
+                    }
+                    else {
+                        textPasswordLayout.setError(null);
+                    }
+                    //textInputLayout.setError("Username must required");
+                    //textPasswordLayout.setError("Password must required");
                 }
             }
         };
 
+
+
         username.addTextChangedListener(textWatcher);
         password.addTextChangedListener(textWatcher);
 
-       /* login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                textView.setText("Authorizing");
-                progressBar.setVisibility(View.VISIBLE);
-
-                u_name = username.getText().toString().trim();
-                pass = password.getText().toString().trim();
-                Log.d("username: ", u_name);
-                Log.d("password: ", pass);
-
-                if(u_name.isEmpty() || pass.isEmpty()) {
-                    t_warning.setVisibility(View.VISIBLE);
-                    t_warning.setText("Enter Username and Password");
-                    //return;
-
-                }
-                    new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            if (u_name.equals("admin") && pass.equals("admin")) {
-                                textView.setText("Authorized");
-                                progressBar.setVisibility(View.INVISIBLE);
-                                textView.setTextColor(Color.parseColor("#22bb33"));
-                                finish();
-                                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
-                            } else {
-                                textView.setText("Unauthorized");
-                                t_warning.setVisibility(View.VISIBLE);
-                                t_warning.setText("Enter correct username and password");
-                                progressBar.setVisibility(View.INVISIBLE);
-                                textView.setTextColor(Color.parseColor("#bb2124"));
-                                username.setText("");
-                                password.setText("");
-                                textView.setText("Log In");
-                            }
-                        }
-                    }, 4000);
-                }
-        });*/
     }
 
     public void log_in(View view) {
+
         String user_name = username.getText().toString().trim();
         String user_pass = password.getText().toString().trim();
 
@@ -172,13 +147,13 @@ public class MainActivity extends AppCompatActivity {
         else {
             if (user_name.equals("") || user_pass.equals("")) {
                 if (user_name.equals("")) {
-                    textInputLayout.setError("Enter Username");
+                    textInputLayout.setError("Username must required");
                 } else {
                     textInputLayout.setError(null);  // Clear the error if username is not empty
                 }
 
                 if (user_pass.equals("")) {
-                    textPasswordLayout.setError("Enter Password");
+                    textPasswordLayout.setError("Password must required");
                 } else {
                     textPasswordLayout.setError(null);  // Clear the error if password is not empty
                 }
@@ -188,3 +163,4 @@ public class MainActivity extends AppCompatActivity {
 
     }
 }
+
