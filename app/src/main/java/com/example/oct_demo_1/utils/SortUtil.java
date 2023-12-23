@@ -30,7 +30,7 @@ public class SortUtil implements Comparator<Airport> {
         }
     }
 
-    public static void sortByCode(List<Airport> data) {
+    /*public static void sortByCode(List<Airport> data) {
         if (SORT_FACTOR == 2 && sort_asc == false) {
             Collections.sort(data, Collections.reverseOrder(new SortUtil()));
             sort_asc = true;
@@ -50,7 +50,7 @@ public class SortUtil implements Comparator<Airport> {
             Collections.sort(data, new SortUtil());
             sort_asc = false;
         }
-    }
+    }*/
 
     @Override
     public int compare(Airport a1, Airport a2) {
@@ -60,10 +60,10 @@ public class SortUtil implements Comparator<Airport> {
                 return a1.getCity().compareToIgnoreCase(a2.getCity());
             case 1:
                 return a1.getAirport().compareToIgnoreCase(a2.getAirport());
-            case 2:
+            /*case 2:
                 return a1.getCode().compareToIgnoreCase(a2.getCode());
             case 3:
-                return a1.getCountry().compareToIgnoreCase(a2.getCountry());
+                return a1.getCountry().compareToIgnoreCase(a2.getCountry());*/
         }
     }
 }

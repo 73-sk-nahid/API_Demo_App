@@ -1,6 +1,7 @@
 package com.example.oct_demo_1;
 
 import android.app.ProgressDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -53,6 +54,7 @@ public class Company_view extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_view);
+        getWindow().setStatusBarColor(Color.TRANSPARENT);
 
         buttonLoad = findViewById(R.id.button_parse);
         tableLayout = findViewById(R.id.table);
@@ -76,20 +78,22 @@ public class Company_view extends AppCompatActivity {
         mProgressBar.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         mProgressBar.show();
 
-        String url = "https://gist.githubusercontent.com/tdreyno/4278655/raw/7b0762c09b519f40397e4c3e100b097d861f5588/airports.json";
+        //String url = "https://gist.githubusercontent.com/tdreyno/4278655/raw/7b0762c09b519f40397e4c3e100b097d861f5588/airports.json";
+        String url = "https://uatezone.octimsbd.com/api/company";
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            getSupportActionBar().setTitle("Airport (" + String.valueOf(response.length() + ")"));
+                            setTitle("Airport (" + String.valueOf(response.length() + ")"));
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject employee = response.getJSONObject(i);
-                                String city = employee.getString("city");
-                                String name = employee.getString("name");
-                                String code = employee.getString("code");
-                                String country = employee.getString("country");
-                                airports.add(new Airport(city, name, code, country));
+                                String Code = employee.getString("Code");
+                                String Name = employee.getString("Name");
+                                //String code = employee.getString("code");
+                                //String country = employee.getString("country");
+                                //airports.add(new Airport(city, name, code, country));
+                                airports.add(new Airport(Code, Name));
                             }
                             createTableHeader();
                             createTable(airports, 0);
@@ -153,10 +157,10 @@ public class Company_view extends AppCompatActivity {
     }
 
     private void sortData(final LinearLayout buttonLayout, final int data_size, final int page_size, final List<Airport> airports) {
-        final TextView tvCity = (TextView) tableRowHeader.getChildAt(1);
-        final TextView tvAirport = (TextView) tableRowHeader.getChildAt(2);
-        final TextView tvCode = (TextView) tableRowHeader.getChildAt(3);
-        final TextView tvCountry = (TextView) tableRowHeader.getChildAt(4);
+        final TextView tvCity = (TextView) tableRowHeader.getChildAt(1); //Code
+        final TextView tvAirport = (TextView) tableRowHeader.getChildAt(2); //Name
+        /*final TextView tvCode = (TextView) tableRowHeader.getChildAt(3);
+        final TextView tvCountry = (TextView) tableRowHeader.getChildAt(4);*/
         tvCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -175,7 +179,7 @@ public class Company_view extends AppCompatActivity {
             }
         });
 
-        tvCode.setOnClickListener(new View.OnClickListener() {
+        /*tvCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SortUtil.sortByCode(airports);
@@ -191,11 +195,12 @@ public class Company_view extends AppCompatActivity {
                 createTable(airports, 0);
                 checkBtnBackGroud(0);
             }
-        });
+        });*/
     }
 
 
-    private void createTableRow(String serial_number, String city, String airport, String code, String country, int index) {
+    //private void createTableRow(String serial_number, String city, String airport, String code, String country, int index) {
+    private void createTableRow(String serial_number, String city, String airport,  int index) {
         TableRow tableRow = new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
         tableRow.setLayoutParams(lp);
@@ -203,75 +208,76 @@ public class Company_view extends AppCompatActivity {
         TextView textViewSN = new TextView(this);
         TextView textViewCity = new TextView(this);
         TextView textViewAirport = new TextView(this);
-        TextView textViewCode = new TextView(this);
-        TextView textViewCountry = new TextView(this);
+        /*TextView textViewCode = new TextView(this);
+        TextView textViewCountry = new TextView(this);*/
 
         textViewSN.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0));
         textViewCity.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0.3f));
         textViewAirport.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1.5f));
-        textViewCode.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0));
-        textViewCountry.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0.3f));
+        /*textViewCode.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0));
+        textViewCountry.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0.3f));*/
 
         textViewSN.setGravity(Gravity.CENTER);
         textViewCity.setGravity(Gravity.CENTER);
         textViewAirport.setGravity(Gravity.CENTER);
-        textViewCode.setGravity(Gravity.CENTER);
-        textViewCountry.setGravity(Gravity.CENTER);
+        /*textViewCode.setGravity(Gravity.CENTER);
+        textViewCountry.setGravity(Gravity.CENTER);*/
 
         textViewAirport.setMaxLines(3);
         textViewCity.setMaxLines(2);
-        textViewCountry.setMaxLines(2);
-        textViewCode.setMaxLines(2);
+        /*textViewCountry.setMaxLines(2);
+        textViewCode.setMaxLines(2);*/
 
         textViewSN.setPadding(5, 15, 5, 15);
         textViewCity.setPadding(5, 15, 5, 15);
         textViewAirport.setPadding(5, 15, 5, 15);
-        textViewCode.setPadding(5, 15, 5, 15);
-        textViewCountry.setPadding(5, 15, 5, 15);
+        /*textViewCode.setPadding(5, 15, 5, 15);
+        textViewCountry.setPadding(5, 15, 5, 15);*/
 
         textViewSN.setText(serial_number);
         textViewCity.setText(city);
         textViewAirport.setText(airport);
-        textViewCode.setText(code);
-        textViewCountry.setText(country);
+        /*textViewCode.setText(code);
+        textViewCountry.setText(country);*/
 
         textViewSN.setBackgroundResource(R.drawable.cell_shape_white);
         textViewCity.setBackgroundResource(R.drawable.cell_shape_grey);
         textViewAirport.setBackgroundResource(R.drawable.cell_shape_white);
-        textViewCode.setBackgroundResource(R.drawable.cell_shape_grey);
-        textViewCountry.setBackgroundResource(R.drawable.cell_shape_white);
+        /*textViewCode.setBackgroundResource(R.drawable.cell_shape_grey);
+        textViewCountry.setBackgroundResource(R.drawable.cell_shape_white);*/
 
         tableRow.addView(textViewSN);
         tableRow.addView(textViewCity);
         tableRow.addView(textViewAirport);
-        tableRow.addView(textViewCode);
-        tableRow.addView(textViewCountry);
+        /*tableRow.addView(textViewCode);
+        tableRow.addView(textViewCountry);*/
 
         if (index == -1) {
             tableRowHeader = tableRow;
             textViewSN.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
             textViewCity.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
             textViewAirport.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
-            textViewCode.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
-            textViewCountry.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            /*textViewCode.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            textViewCountry.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));*/
 
             textViewCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
             textViewAirport.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
-            textViewCode.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
-            textViewCountry.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
+            /*textViewCode.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
+            textViewCountry.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);*/
 
             textViewSN.setBackgroundResource(R.drawable.cell_shape_blue);
             textViewCity.setBackgroundResource(R.drawable.cell_shape_blue);
             textViewAirport.setBackgroundResource(R.drawable.cell_shape_blue);
-            textViewCode.setBackgroundResource(R.drawable.cell_shape_blue);
-            textViewCountry.setBackgroundResource(R.drawable.cell_shape_blue);
+            /*textViewCode.setBackgroundResource(R.drawable.cell_shape_blue);
+            textViewCountry.setBackgroundResource(R.drawable.cell_shape_blue);*/
         }
         tableLayout.addView(tableRow, index + 1);
     }
 
     private void createTableHeader() {
         tableLayout.removeAllViews();
-        createTableRow("S.N", "City", "Airport", "Code", "Country", -1);
+        //createTableRow("S.N", "City", "Airport", "Code", "Country", -1);
+        createTableRow("S.N", "Code", "Name",-1);
     }
 
     private void createTable(List<Airport> airports, int page) {
@@ -283,9 +289,10 @@ public class Company_view extends AppCompatActivity {
                     String.valueOf(j + 1),
                     airports.get(j).getCity(),
                     airports.get(j).getAirport(),
-                    airports.get(j).getCode(),
-                    airports.get(j).getCountry(),
                     i
+                    //airports.get(j).getCode(),
+                    //airports.get(j).getCountry(),
+
             );
         }
 

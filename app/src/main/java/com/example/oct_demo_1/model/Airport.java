@@ -3,14 +3,14 @@ package com.example.oct_demo_1.model;
 public class Airport {
     private String city;
     private String airport;
-    private String code;
-    private String country;
+    //private String code;
+    //private String country;
 
-    public Airport(String city, String airport, String code, String country) {
+    public Airport(String city, String airport) {
         this.city = city;
         this.airport = airport;
-        this.code = code;
-        this.country = country;
+        //this.code = code;
+        //this.country = country;
     }
 
     public String getCity() {
@@ -21,11 +21,11 @@ public class Airport {
         return airport;
     }
 
-    public String getCode() {
+    /*public String getCode() {
         return code;
     }
 
     public String getCountry() {
         return country;
-    }
+    }*/
 }
