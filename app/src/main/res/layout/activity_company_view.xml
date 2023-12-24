@@ -29,17 +29,18 @@
             android:layout_height="wrap_content"
             android:stretchColumns="*" />
 
-        <Button
+        <!--<Button
             android:id="@+id/button_parse"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Load" />
+            android:text="Load" />-->
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
             android:layout_height="50dp"
             android:padding="2dp"
+            android:layout_marginBottom="10dp"
             android:scrollbarThumbHorizontal="@color/colorAccent">
 
             <LinearLayout
