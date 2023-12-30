@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -84,9 +85,6 @@ public class Company_view extends AppCompatActivity {
                                 JSONObject employee = response.getJSONObject(i);
                                 String Code = employee.getString("Code");
                                 String Name = employee.getString("Name");
-                                //String code = employee.getString("code");
-                                //String country = employee.getString("country");
-                                //airports.add(new Airport(city, name, code, country));
                                 companies.add(new Company(Code, Name));
                             }
                             createTableHeader();
@@ -95,7 +93,6 @@ public class Company_view extends AppCompatActivity {
                             checkBtnBackGroud(0);
                             sortData(buttonLayout, response.length(), PAGE_SIZE, companies);
                             mProgressBar.hide();
-                            //buttonLoad.setVisibility(View.GONE);
 
                         } catch (JSONException e) {
                             mProgressBar.hide();
@@ -152,9 +149,9 @@ public class Company_view extends AppCompatActivity {
     }
 
     private void sortData(final LinearLayout buttonLayout, final int data_size, final int page_size, final List<Company> companies) {
-        final TextView tvCity = (TextView) tableRowHeader.getChildAt(1); //Code
-        final TextView tvAirport = (TextView) tableRowHeader.getChildAt(2); //Name
-        tvCity.setOnClickListener(new View.OnClickListener() {
+        final TextView tvCode = (TextView) tableRowHeader.getChildAt(1); //Code
+        final TextView tvName = (TextView) tableRowHeader.getChildAt(2); //Name
+        tvCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SortUtil.sortByCity(companies);
@@ -163,7 +160,7 @@ public class Company_view extends AppCompatActivity {
             }
         });
 
-        tvAirport.setOnClickListener(new View.OnClickListener() {
+        tvName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SortUtil.sortByName(companies);
@@ -173,62 +170,90 @@ public class Company_view extends AppCompatActivity {
         });
     }
 
-    private void createTableRow(String serial_number, String city, String airport,  int index) {
+    private void createTableRow(String Code, String Name, String Edit, String Delete, int index) {
         TableRow tableRow = new TableRow(this);
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         tableRow.setLayoutParams(lp);
 
-        TextView textViewSN = new TextView(this);
-        TextView textViewCity = new TextView(this);
-        TextView textViewAirport = new TextView(this);
+        TextView textViewCode = new TextView(this);
+        TextView textViewName = new TextView(this);
+        //_______________________________
+        Button editButton = new Button(this);
+        Button deleteButton = new Button(this);
 
-        textViewSN.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0));
-        textViewCity.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0.3f));
-        textViewAirport.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1.5f));
+        textViewCode.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0.3f));
+        textViewName.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1.5f));
+        //________________________________
+        editButton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT,0));
+        deleteButton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT,0));
 
-        textViewSN.setGravity(Gravity.CENTER);
-        textViewCity.setGravity(Gravity.CENTER);
-        textViewAirport.setGravity(Gravity.CENTER);
+        textViewCode.setGravity(Gravity.CENTER);
+        textViewName.setGravity(Gravity.CENTER);
+        //__________________
+        editButton.setGravity(Gravity.CENTER);
+        deleteButton.setGravity(Gravity.CENTER);
 
-        textViewAirport.setMaxLines(3);
-        textViewCity.setMaxLines(2);
+        textViewName.setMaxLines(3);
+        textViewCode.setMaxLines(2);
 
-        textViewSN.setPadding(5, 15, 5, 15);
-        textViewCity.setPadding(5, 15, 5, 15);
-        textViewAirport.setPadding(5, 15, 5, 15);
+        textViewCode.setPadding(2, 10, 2, 10);
+        textViewName.setPadding(2, 10, 2, 10);
 
-        textViewSN.setText(serial_number);
-        textViewCity.setText(city);
-        textViewAirport.setText(airport);
+        textViewCode.setText(Code);
+        textViewName.setText(Name);
+        //_______________________________
+        editButton.setText(Edit);
+        deleteButton.setText(Delete);
 
-        textViewSN.setBackgroundResource(R.drawable.cell_shape_white);
-        textViewCity.setBackgroundResource(R.drawable.cell_shape_grey);
-        textViewAirport.setBackgroundResource(R.drawable.cell_shape_white);
+        textViewCode.setBackgroundResource(R.drawable.cell_shape_grey);
+        textViewName.setBackgroundResource(R.drawable.cell_shape_white);
+        //_________________________________
+        editButton.setBackgroundResource(R.drawable.edit_btn);
+        deleteButton.setBackgroundResource(R.drawable.delete_btn);
 
-        tableRow.addView(textViewSN);
-        tableRow.addView(textViewCity);
-        tableRow.addView(textViewAirport);
+        tableRow.addView(textViewCode);
+        tableRow.addView(textViewName);
+        //________________________________
+        tableRow.addView(editButton);
+        tableRow.addView(deleteButton);
 
         if (index == -1) {
             tableRowHeader = tableRow;
-            textViewSN.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
-            textViewCity.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
-            textViewAirport.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            textViewCode.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            textViewName.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            //_________________________________________________
+            editButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            deleteButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
 
-            textViewCity.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
-            textViewAirport.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
+            textViewCode.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
+            textViewName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
 
-            textViewSN.setBackgroundResource(R.drawable.cell_shape_blue);
-            textViewCity.setBackgroundResource(R.drawable.cell_shape_blue);
-            textViewAirport.setBackgroundResource(R.drawable.cell_shape_blue);
+            textViewCode.setBackgroundResource(R.drawable.cell_shape_blue);
+            textViewName.setBackgroundResource(R.drawable.cell_shape_blue);
+            //_______________________________________________________
+            editButton.setBackgroundResource(R.drawable.cell_shape_blue);
+            deleteButton.setBackgroundResource(R.drawable.cell_shape_blue);
+        }
+        if (index  >= 0){
+            setMarginsForView(editButton,2, 3, 2, 2);
+            setMarginsForView(deleteButton,2, 3, 2, 2);
+            //_______________________________
+            editButton.setTextColor(Color.WHITE); // Set text color
+            editButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            deleteButton.setTextColor(Color.WHITE); // Set text color
+            deleteButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         }
         tableLayout.addView(tableRow, index + 1);
+    }
+    private void setMarginsForView(View view, int left, int top, int right, int bottom) {
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.setMargins(left, top, right, bottom);
+        view.setLayoutParams(layoutParams);
     }
 
     private void createTableHeader() {
         tableLayout.removeAllViews();
-        //createTableRow("S.N", "City", "Airport", "Code", "Country", -1);
-        createTableRow("S.N", "Code", "Name",-1);
+        createTableRow("Code", "Name","Edit","Delete", -1);
     }
 
     private void createTable(List<Company> companies, int page) {
@@ -237,9 +262,10 @@ public class Company_view extends AppCompatActivity {
         // data rows
         for (int i = 0, j = page * 50; j < companies.size() && i < 50; i++, j++) {
             createTableRow(
-                    String.valueOf(j + 1),
                     companies.get(j).getCode(),
                     companies.get(j).getName(),
+                    "Edit",
+                    "Delete",
                     i
 
             );

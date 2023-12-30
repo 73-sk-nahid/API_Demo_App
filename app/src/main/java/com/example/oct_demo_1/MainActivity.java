@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     EditText username, password;
     CardView login;
     private String u_name, pass;
-    private String url = "https://scontent.fdac147-1.fna.fbcdn.net/v/t39.30808-6/300582007_755115559159904_7395749110668885523_n.png?_nc_cat=108&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=PHoPrJqcwiIAX8C2Yj0&_nc_ht=scontent.fdac147-1.fna&oh=00_AfBeHciv-0SKQee25LXt6uc6DNRust-66X0rQewmwIcKvw&oe=658823E5";
+    private String url = "https://rb.gy/6v1dhy";
+    //private String url = "https://scontent.fdac147-1.fna.fbcdn.net/v/t39.30808-6/300582007_755115559159904_7395749110668885523_n.png?_nc_cat=108&ccb=1-7&_nc_sid=efb6e6&_nc_ohc=PHoPrJqcwiIAX8C2Yj0&_nc_ht=scontent.fdac147-1.fna&oh=00_AfBeHciv-0SKQee25LXt6uc6DNRust-66X0rQewmwIcKvw&oe=658823E5";
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         textPasswordLayout = findViewById(R.id.etPasswordLayout);
 
         // Loading logo image from webs using URL method
-        Glide.with(MainActivity.this).load(url).fitCenter().into(imageView);
+        //Glide.with(MainActivity.this).load(url).fitCenter().into(imageView);
 
 
         TextWatcher textWatcher = new TextWatcher() {
@@ -72,8 +73,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                textView.setText("Log In");
-                textView.setTextColor(Color.parseColor("#FFFFFF"));
+                /*textView.setText("Log In");
+                textView.setTextColor(Color.parseColor("#FFFFFF"));*/
+                /*login.setCardBackgroundColor(Color.parseColor("#00a0c6"));*/
                 // This method is called to notify you that somewhere within `s`, the characters `before` in length beginning at `start` are about to be replaced with new text with a length of `after` characters.
             }
 
@@ -84,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
                     // If there is text in any of the EditTexts, set the TextView visibility to GONE
                     textInputLayout.setError("");
                     textPasswordLayout.setError("");
+                    textView.setText("Log In");
+                    textView.setTextColor(Color.parseColor("#FFFFFF"));
+                    login.setCardBackgroundColor(Color.parseColor("#00a0c6"));
                 } else {
                     // If all EditTexts are empty, set the TextView visibility to VISIBLE
                     if (textInputLayout.equals("")){

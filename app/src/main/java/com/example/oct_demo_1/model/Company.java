@@ -4,9 +4,10 @@ public class Company {
     private String Code;
     private String Name;
 
-    public Company(String Code, String Name) {
-        this.Code = Code;
-        this.Name = Name;
+
+    public Company(String code, String name) {
+        Code = code;
+        Name = name;
     }
 
     public String getCode() {
@@ -16,4 +17,5 @@ public class Company {
     public String getName() {
         return Name;
     }
+
 }
