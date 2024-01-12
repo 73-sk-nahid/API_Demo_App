@@ -1,0 +1,17 @@
+<!-- res/drawable/multiple_gradients.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <!-- Gradient 2 - Left to Right -->
+    <item android:top="1dp">
+        <shape>
+            <gradient
+                android:angle="0"
+                android:startColor="#2196F3"
+                android:endColor="#FFC107"/>
+        </shape>
+    </item>
+
+    <!-- Add more items for additional gradients -->
+
+</layer-list>

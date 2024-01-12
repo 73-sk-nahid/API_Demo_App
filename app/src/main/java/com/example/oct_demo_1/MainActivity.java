@@ -1,37 +1,22 @@
 package com.example.oct_demo_1;
 
-import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowInsets;
-import android.view.WindowInsetsController;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
     ImageView imageView;
@@ -73,10 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                /*textView.setText("Log In");
-                textView.setTextColor(Color.parseColor("#FFFFFF"));*/
-                /*login.setCardBackgroundColor(Color.parseColor("#00a0c6"));*/
-                // This method is called to notify you that somewhere within `s`, the characters `before` in length beginning at `start` are about to be replaced with new text with a length of `after` characters.
             }
 
             @Override
@@ -108,11 +89,8 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-
-
         username.addTextChangedListener(textWatcher);
         password.addTextChangedListener(textWatcher);
-
     }
 
     public void log_in(View view) {

@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
@@ -52,7 +53,6 @@ public class Company_view extends AppCompatActivity {
         setContentView(R.layout.activity_company_view);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
 
-        /*buttonLoad = findViewById(R.id.button_parse);*/
         tableLayout = findViewById(R.id.table);
         tableLayout.setStretchAllColumns(true);
         mProgressBar = new ProgressDialog(this);
@@ -60,13 +60,6 @@ public class Company_view extends AppCompatActivity {
         buttonLayout = findViewById(R.id.btnLay);
         scrollView = findViewById(R.id.scroll_view);
         mQueue = Volley.newRequestQueue(this);
-        /*buttonLoad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                jsonParse();
-            }
-        });*/
-
 
     /*private void jsonParse() {*/
         mProgressBar.setCancelable(true);
@@ -149,12 +142,12 @@ public class Company_view extends AppCompatActivity {
     }
 
     private void sortData(final LinearLayout buttonLayout, final int data_size, final int page_size, final List<Company> companies) {
-        final TextView tvCode = (TextView) tableRowHeader.getChildAt(1); //Code
-        final TextView tvName = (TextView) tableRowHeader.getChildAt(2); //Name
+        final TextView tvCode = (TextView) tableRowHeader.getChildAt(0); //Code
+        final TextView tvName = (TextView) tableRowHeader.getChildAt(1); //Name
         tvCode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                SortUtil.sortByCity(companies);
+                SortUtil.sortByCode(companies);
                 createTable(companies, 0);
                 checkBtnBackGroud(0);
             }
@@ -170,7 +163,7 @@ public class Company_view extends AppCompatActivity {
         });
     }
 
-    private void createTableRow(String Code, String Name, String Edit, String Delete, int index) {
+    /*private void createTableRow(String Code, String Name, String Edit, int index) {
         TableRow tableRow = new TableRow(this);
         TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
         tableRow.setLayoutParams(lp);
@@ -202,14 +195,17 @@ public class Company_view extends AppCompatActivity {
         textViewCode.setText(Code);
         textViewName.setText(Name);
         //_______________________________
-        editButton.setText(Edit);
-        deleteButton.setText(Delete);
+        //editButton.setText(Edit);
+        //deleteButton.setText(Delete);
 
         textViewCode.setBackgroundResource(R.drawable.cell_shape_grey);
         textViewName.setBackgroundResource(R.drawable.cell_shape_white);
         //_________________________________
-        editButton.setBackgroundResource(R.drawable.edit_btn);
-        deleteButton.setBackgroundResource(R.drawable.delete_btn);
+        //editButton.setBackgroundResource(R.drawable.edit_btn);
+        //deleteButton.setBackgroundResource(R.drawable.delete_btn);
+        // Set vector drawables as background for buttons
+        editButton.setBackgroundResource(R.drawable.edit);
+        deleteButton.setBackgroundResource(R.drawable.delete);
 
         tableRow.addView(textViewCode);
         tableRow.addView(textViewName);
@@ -244,7 +240,120 @@ public class Company_view extends AppCompatActivity {
             deleteButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
         }
         tableLayout.addView(tableRow, index + 1);
+    }*/
+
+    private void createTableRow(String Code, String Name, String Operations, int index) {
+        TableRow tableRow = new TableRow(this);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT);
+        tableRow.setLayoutParams(lp);
+
+        TextView textViewCode = new TextView(this);
+        TextView textViewName = new TextView(this);
+        TextView textViewOperations = new TextView(this);
+        //_______________________________
+        //Button editButton = new Button(this);
+        //Button deleteButton = new Button(this);
+
+        textViewCode.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 0.3f));
+        textViewName.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1.5f));
+        textViewOperations.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.MATCH_PARENT, 1.0f));
+        //________________________________
+        //editButton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0));
+        //deleteButton.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT, TableRow.LayoutParams.WRAP_CONTENT, 0));
+
+        textViewCode.setGravity(Gravity.CENTER);
+        textViewName.setGravity(Gravity.CENTER);
+        textViewOperations.setGravity(Gravity.CENTER);
+        //__________________
+        //editButton.setGravity(Gravity.CENTER);
+        //deleteButton.setGravity(Gravity.CENTER);
+
+        textViewName.setMaxLines(4);
+        textViewCode.setMaxLines(2);
+
+        textViewCode.setPadding(2, 10, 2, 10);
+        textViewName.setPadding(2, 10, 2, 10);
+        textViewOperations.setPadding(2, 10, 2, 10);
+
+        textViewCode.setText(Code);
+        textViewName.setText(Name);
+        textViewOperations.setText(Operations); // Set "Operations" text
+        //_______________________________
+        //editButton.setText(Edit);
+        //deleteButton.setText(Delete);
+
+        textViewCode.setBackgroundResource(R.drawable.cell_shape_grey);
+        textViewName.setBackgroundResource(R.drawable.cell_shape_white);
+        textViewName.setBackgroundResource(R.drawable.cell_shape_white);
+        //textViewOperations.setBackgroundResource(R.drawable.marge);
+
+        //_________________________________
+        //editButton.setBackgroundResource(R.drawable.edit_btn);
+        //deleteButton.setBackgroundResource(R.drawable.delete_btn);
+        // Set vector drawables as background for buttons
+        //editButton.setBackgroundResource(R.drawable.edit);
+        //deleteButton.setBackgroundResource(R.drawable.delete);
+        tableRow.addView(textViewCode);
+        tableRow.addView(textViewName);
+        textViewOperations.setBackgroundResource(R.drawable.merge);
+        tableRow.addView(textViewOperations);
+        //tableRow.addView(textViewOperations);
+        //________________________________
+        //tableRow.addView(editButton);
+        //tableRow.addView(deleteButton);
+
+        if (index == -1) {
+            tableRowHeader = tableRow;
+            textViewCode.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            textViewName.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            textViewOperations.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            //_________________________________________________
+            //editButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+            //deleteButton.setTextSize(TypedValue.COMPLEX_UNIT_PX, (int) getResources().getDimension(R.dimen.font_size_small));
+
+            textViewCode.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
+            textViewName.setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, R.drawable.ic_sort_by_alpha_black, 0);
+
+            textViewCode.setBackgroundResource(R.drawable.cell_shape_blue);
+            textViewName.setBackgroundResource(R.drawable.cell_shape_blue);
+            textViewOperations.setBackgroundResource(R.drawable.cell_shape_blue);
+            //_______________________________________________________
+            //editButton.setBackgroundResource(R.drawable.cell_shape_blue);
+            //deleteButton.setBackgroundResource(R.drawable.cell_shape_blue);
+        }
+        if (index >= 0) {
+            //setMarginsForView(editButton, 2, 3, 2, 2);
+            //setMarginsForView(deleteButton, 2, 3, 2, 2);
+            //_______________________________
+            //editButton.setTextColor(Color.WHITE); // Set text color
+            //editButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+            //deleteButton.setTextColor(Color.WHITE); // Set text color
+            //deleteButton.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+
+            //textViewOperations.
+            String originalText = Name.toString();
+            int maxCharactersPerLine = 40; // set your desired maximum characters per line
+
+            StringBuilder modifiedText = new StringBuilder();
+            int charCount = 0;
+
+            for (char c : originalText.toCharArray()) {
+                modifiedText.append(c);
+                charCount++;
+
+                if (charCount >= maxCharactersPerLine) {
+                    modifiedText.append("\n"); // add newline after reaching the maximum characters per line
+                    charCount = 0; // reset character count for the next line
+                }
+            }
+
+            textViewName.setText(modifiedText.toString());
+
+        }
+        tableLayout.addView(tableRow, index + 1);
     }
+
+
     private void setMarginsForView(View view, int left, int top, int right, int bottom) {
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.setMargins(left, top, right, bottom);
@@ -253,7 +362,8 @@ public class Company_view extends AppCompatActivity {
 
     private void createTableHeader() {
         tableLayout.removeAllViews();
-        createTableRow("Code", "Name","Edit","Delete", -1);
+        //createTableRow("Code", "Name","Edit","Delete", -1);
+        createTableRow("Code", "Name","Action", -1);
     }
 
     private void createTable(List<Company> companies, int page) {
@@ -264,8 +374,7 @@ public class Company_view extends AppCompatActivity {
             createTableRow(
                     companies.get(j).getCode(),
                     companies.get(j).getName(),
-                    "Edit",
-                    "Delete",
+                    "",
                     i
 
             );

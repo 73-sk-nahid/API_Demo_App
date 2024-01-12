@@ -8,7 +8,7 @@ public class SortUtil implements Comparator<Company> {
     private static int SORT_FACTOR = -1;
     private static boolean sort_asc = true;
 
-    public static void sortByCity(List<Company> data) {
+    public static void sortByCode(List<Company> data) {
         if (SORT_FACTOR == 0 && sort_asc == false) {
             Collections.sort(data, Collections.reverseOrder(new SortUtil()));
             sort_asc = true;
